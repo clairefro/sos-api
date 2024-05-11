@@ -15,3 +15,6 @@ interface GenerateResponseBody {
 interface SosError {
   message: string;
 }
+
+// pre-parsed JSON
+type RawSoAnswers = string;

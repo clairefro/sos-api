@@ -6,7 +6,7 @@ Relive the good ol' days of SO, with all the nostalgic sass.
 
 `npm run dev`
 
-Ignore typescript errors. 🤷
+`cp .env.example .env` <-- add required env vars
 
 ## Build
 

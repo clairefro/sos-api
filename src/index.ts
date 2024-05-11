@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { generateSoAnswers } from "./lib/generate";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,11 +12,11 @@ app.get("/health", (_req, res) => {
 
 app.post(
   "/generate",
-  (
+  async (
     req: Request<GenerateRequestInput>,
     res: Response<GenerateResponseBody | SosError>
   ) => {
-    // validation
+    // TODO: validation -> middleware
     if (!req.body || !req.body.question) {
       return res
         .status(400)
@@ -25,14 +26,21 @@ app.post(
     const question = req.body.question;
 
     // TODO: GENERATE SOS
-    const answer = `Your question: ${question}`;
-    const dummyAnswers = {
-      answers: [
-        { content: "foo", username: "bar", isBest: false },
-        { content: "bax", username: "boo", isBest: true },
-      ],
-    };
-    res.status(200).send(dummyAnswers);
+
+    try {
+      const raw = await generateSoAnswers(question);
+      console.log(raw);
+      // TODO: JSON VALIDATION + REFETCH
+      if (raw === undefined) throw new Error("malformatted JSON response");
+
+      const parsed = JSON.parse(raw);
+
+      res.status(200).send({ answers: parsed });
+    } catch (e: any) {
+      // TODO : return something
+      console.log(e.message);
+      res.status(500).send({ message: "oh noooooo" });
+    }
   }
 );
 
