@@ -20,24 +20,22 @@ async function generateSoAnswers(
     },
   ];
 
+  const opts = {
+    model: "gpt-4o",
+    max_tokens: 1600,
+    n: 1,
+    temperature: 1,
+    messages,
+    stream: false,
+  };
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+  };
+
   try {
-    const response = await axios.post(
-      url,
-      {
-        model: "gpt-3.5-turbo",
-        max_tokens: 1600,
-        n: 1,
-        temperature: 1,
-        messages,
-        stream: false,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }
-    );
+    const response = await axios.post(url, opts, { headers });
 
     const content = response.data.choices[0].message.content;
     return content;

@@ -25,12 +25,10 @@ app.post(
 
     const question = req.body.question;
 
-    // TODO: GENERATE SOS
-
     try {
       const raw = await generateSoAnswers(question);
-      console.log(raw);
       // TODO: JSON VALIDATION + REFETCH
+
       if (raw === undefined) throw new Error("malformatted JSON response");
 
       const parsed = JSON.parse(raw);
