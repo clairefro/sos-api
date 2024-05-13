@@ -4,6 +4,7 @@ Relive the good ol' days of SO, with all the nostalgic sass.
 
 ### TODO
 
+- [ ] Validate that OpenAI returns JSON response - re-fetch up to two times if not
 - [ ] Add a BYO-API key option for using OpenAI
 - [ ] Add auth (API Key)
 - [ ] Limit demo to 5 requests per client
@@ -12,7 +13,6 @@ Relive the good ol' days of SO, with all the nostalgic sass.
 ## Devlopment
 
 `npm run dev`
-
 `cp .env.example .env` <-- add required env vars
 
 ## Build
