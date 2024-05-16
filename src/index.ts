@@ -1,10 +1,37 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
+
 import { generateSoAnswers } from "./lib/generate";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+/** CORS CONFIG */
+
+let allowedOrigins;
+if (process.env.NODE_ENV === "development") {
+  allowedOrigins = ["http://local:3000"];
+} else {
+  // TODO: HARD CODE PROD CLIENT ONCE HOSTED
+  allowedOrigins = [""]; // Example for local development
+}
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Check if the origin is allowed
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+
+/** END CORS CONFIG */
 
 app.get("/health", (_req, res) => {
   res.status(200).send("OK");
@@ -36,7 +63,6 @@ app.post(
       res.status(200).send({ answers: parsed });
     } catch (e: any) {
       // TODO : return something
-      console.log(e.message);
       res.status(500).send({ message: "oh noooooo" });
     }
   }
