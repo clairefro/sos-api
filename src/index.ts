@@ -12,7 +12,7 @@ app.use(express.json());
 
 let allowedOrigins;
 if (process.env.NODE_ENV === "development") {
-  allowedOrigins = ["http://local:3000"];
+  allowedOrigins = ["http://localhost:5173"];
 } else {
   // TODO: HARD CODE PROD CLIENT ONCE HOSTED
   allowedOrigins = [""]; // Example for local development
@@ -22,6 +22,7 @@ app.use(
   cors({
     origin: function (origin, callback) {
       // Check if the origin is allowed
+      console.log({ origin });
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
