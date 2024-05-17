@@ -60,7 +60,7 @@ app.post(
 
       const parsed = JSON.parse(raw);
 
-      res.status(200).send({ answers: parsed });
+      res.status(200).send(parsed);
     } catch (e: any) {
       // TODO : return something
       res.status(500).send({ message: "oh noooooo" });
