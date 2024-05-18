@@ -36,7 +36,6 @@ async function generateSoAnswers(
 
   try {
     const response = await axios.post(url, opts, { headers });
-
     const content = response.data.choices[0].message.content;
     return content;
   } catch (error) {
