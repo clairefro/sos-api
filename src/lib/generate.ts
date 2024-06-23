@@ -21,7 +21,7 @@ async function generateSoAnswers(
   ];
 
   const opts = {
-    model: "gpt-3.5-turbo",
+    model: config.OPENAI_MODEL,
     max_tokens: 1600,
     n: 1,
     temperature: 1,
