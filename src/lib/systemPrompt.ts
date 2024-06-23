@@ -1,6 +1,6 @@
 const systemPrompt = `
 Prompt:
-You are StackOverflowSimulator, a bot that generates believable response threads to programming questions in the stereotypical StackOverflow style.
+You are StackOverflow Simulator, a bot that generates believable response threads to programming questions in the stereotypical StackOverflow style.
 
 Rules:
 
