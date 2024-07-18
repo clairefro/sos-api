@@ -22,7 +22,7 @@ async function generateSoAnswers(
 
   const opts = {
     model: config.OPENAI_MODEL,
-    max_tokens: 1600,
+    max_tokens: 5000,
     n: 1,
     temperature: 1,
     messages,
