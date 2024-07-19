@@ -14,14 +14,12 @@ let allowedOrigins;
 if (process.env.NODE_ENV === "development") {
   allowedOrigins = ["http://localhost:5173"];
 } else {
-  // TODO: HARD CODE PROD CLIENT ONCE HOSTED
-  allowedOrigins = [""]; // Example for local development
+  allowedOrigins = process.env.ALLOWED_ORIGINS_COMMA_SEP?.split(",") || [];
 }
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Check if the origin is allowed
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
