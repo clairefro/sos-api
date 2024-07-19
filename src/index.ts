@@ -1,37 +1,18 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-
+import { corsOptions, handleCorsError } from "./middleware/cors";
 import { generateSoAnswers } from "./lib/generate";
-import config from "./config";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+/** MIDDLEWARE */
 app.use(express.json());
 
-/** CORS CONFIG */
+app.use(cors(corsOptions));
+app.use(handleCorsError);
 
-let allowedOrigins;
-if (process.env.NODE_ENV === "development") {
-  allowedOrigins = ["http://localhost:5173"];
-} else {
-  allowedOrigins = config.ALLOWED_PROD_ORIGINS_COMMA_SEP?.split(",") || [];
-}
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
-
-/** END CORS CONFIG */
-
+/** ROUTES */
 app.get("/health", (_req, res) => {
   res.status(200).send("OK");
 });
