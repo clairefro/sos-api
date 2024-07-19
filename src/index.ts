@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 
 import { generateSoAnswers } from "./lib/generate";
-import config from "../src/config";
+import config from "./config";
 
 const app = express();
 const port = process.env.PORT || 3000;
