@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 
 import { generateSoAnswers } from "./lib/generate";
+import config from "../src/config";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,7 +15,7 @@ let allowedOrigins;
 if (process.env.NODE_ENV === "development") {
   allowedOrigins = ["http://localhost:5173"];
 } else {
-  allowedOrigins = process.env.ALLOWED_PROD_ORIGINS_COMMA_SEP?.split(",") || [];
+  allowedOrigins = config.ALLOWED_PROD_ORIGINS_COMMA_SEP?.split(",") || [];
 }
 
 app.use(
