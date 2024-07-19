@@ -14,7 +14,7 @@ let allowedOrigins;
 if (process.env.NODE_ENV === "development") {
   allowedOrigins = ["http://localhost:5173"];
 } else {
-  allowedOrigins = process.env.ALLOWED_ORIGINS_COMMA_SEP?.split(",") || [];
+  allowedOrigins = process.env.ALLOWED_PROD_ORIGINS_COMMA_SEP?.split(",") || [];
 }
 
 app.use(
