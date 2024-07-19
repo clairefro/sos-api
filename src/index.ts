@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { corsOptions, handleCorsError } from "./middleware/cors";
+import { limiter } from "./middleware/limiter";
 import { generateSoAnswers } from "./lib/generate";
 
 const app = express();
@@ -11,6 +12,8 @@ app.use(express.json());
 
 app.use(cors(corsOptions));
 app.use(handleCorsError);
+
+app.use(limiter);
 
 /** ROUTES */
 app.get("/health", (_req, res) => {
