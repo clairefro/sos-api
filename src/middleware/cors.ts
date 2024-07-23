@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import config from "../config"; // Import your configuration file
+import config from "../config";
 
+const devOrigin = "http://localhost:5173";
 const allowedOrigins =
   process.env.NODE_ENV === "development"
-    ? ["http://localhost:5173"]
+    ? [devOrigin]
     : config.ALLOWED_PROD_ORIGINS_COMMA_SEP?.split(",") || [];
 
 const CORS_ERR_MSG = "Not allowed by CORS";

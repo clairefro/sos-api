@@ -26,7 +26,7 @@ app.post(
     req: Request<GenerateRequestInput>,
     res: Response<GenerateResponseBody | SosError>
   ) => {
-    // TODO: validation -> middleware
+    // TODO: request validation -> middleware
     if (!req.body || !req.body.question) {
       return res
         .status(400)
@@ -37,16 +37,16 @@ app.post(
 
     try {
       const raw = await generateSoAnswers(question);
-      // TODO: JSON VALIDATION + REFETCH
 
+      // TODO: JSON VALIDATION + REFETCH
       if (raw === undefined) throw new Error("malformatted JSON response");
 
       const parsed = JSON.parse(raw);
 
       res.status(200).send(parsed);
     } catch (e: any) {
-      // TODO : return something
-      res.status(500).send({ message: "oh noooooo" });
+      console.error(e.message);
+      res.status(500).send({ message: e.message });
     }
   }
 );

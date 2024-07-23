@@ -22,7 +22,7 @@ async function generateSoAnswers(
 
   const opts = {
     model: config.OPENAI_MODEL,
-    max_tokens: 5000,
+    max_tokens: 4090,
     n: 1,
     temperature: 1,
     messages,
@@ -38,8 +38,16 @@ async function generateSoAnswers(
     const response = await axios.post(url, opts, { headers });
     const content = response.data.choices[0].message.content;
     return content;
-  } catch (error) {
-    console.error("Error:", error);
+  } catch (err: any) {
+    if (axios.isAxiosError(err)) {
+      if (err.response?.data?.error?.message) {
+        throw new Error("OpenAI error: " + err.response.data.error.message);
+      } else {
+        throw new Error("Axios error: " + err.message);
+      }
+    } else {
+      throw new Error("Unexpected error: " + err.message);
+    }
   }
 }
 
