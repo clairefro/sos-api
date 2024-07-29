@@ -9,6 +9,7 @@ interface Answer {
 }
 
 interface GenerateResponseBody {
+  questionTitle: string;
   answers: Answer[];
 }
 
@@ -16,5 +17,7 @@ interface SosError {
   message: string;
 }
 
-// pre-parsed JSON
-type RawSoAnswers = string;
+// escape third party library wiht no types
+declare module "dirty-json" {
+  export function parse(input: string): any;
+}

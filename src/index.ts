@@ -36,14 +36,9 @@ app.post(
     const question = req.body.question;
 
     try {
-      const raw = await generateSoAnswers(question);
+      const answers = await generateSoAnswers(question);
 
-      // TODO: JSON VALIDATION + REFETCH
-      if (raw === undefined) throw new Error("malformatted JSON response");
-
-      const parsed = JSON.parse(raw);
-
-      res.status(200).send(parsed);
+      res.status(200).send(answers);
     } catch (e: any) {
       console.error(e.message);
       res.status(500).send({ message: e.message });
