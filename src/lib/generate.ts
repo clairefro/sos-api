@@ -7,30 +7,27 @@ const apiKey = config.OPENAI_API_KEY;
 
 const url = "https://api.openai.com/v1/chat/completions";
 
-const askWithRetries = async (
-  question: string,
-  retries: number = 3
-): Promise<GenerateResponseBody | undefined> => {
-  /** build query */
+function buildRequestOptions(question: string) {
   const messages = [
-    {
-      role: "system",
-      content: systemPrompt,
-    },
-    {
-      role: "user",
-      content: question,
-    },
+    { role: "system", content: systemPrompt },
+    { role: "user", content: question },
   ];
-
-  const opts = {
+  return {
     model: config.OPENAI_MODEL,
     max_tokens: 4090,
     n: 1,
     temperature: 1,
     messages,
-    stream: false,
   };
+}
+
+async function askWithRetries(
+  question: string,
+  retries: number = 3
+): Promise<GenerateResponseBody | undefined> {
+  /** build query */
+
+  const opts = buildRequestOptions(question);
 
   const headers = {
     "Content-Type": "application/json",
@@ -41,7 +38,6 @@ const askWithRetries = async (
   let attempt = 0;
 
   while (attempt < retries) {
-    console.log({ attempt });
     try {
       const response = await axios.post(url, opts, { headers });
 
@@ -51,7 +47,6 @@ const askWithRetries = async (
 
       return JSON.parse(content);
     } catch (error) {
-      console.log("entered CATCH");
       if (error instanceof SyntaxError) {
         console.error(`Invalid JSON response on attempt ${attempt + 1}`);
       } else if (axios.isAxiosError(error)) {
@@ -62,6 +57,7 @@ const askWithRetries = async (
         console.error(`Unknown error on attempt ${attempt + 1}: ${error}`);
       }
       attempt++;
+      console.log("starting attempt " + (attempt + 1));
       if (attempt === retries) {
         console.error("Max retries reached. Giving up.");
         throw new Error("Max retries reached. Giving up.");
@@ -69,7 +65,7 @@ const askWithRetries = async (
     }
   }
   return undefined;
-};
+}
 
 async function generateSoAnswers(
   question: string
