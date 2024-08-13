@@ -17,6 +17,7 @@ export const corsOptions = {
       // enforce strict CORS in production
       callback(null, true);
     } else {
+      // block CORS
       callback(new Error(CORS_ERR_MSG));
     }
   },

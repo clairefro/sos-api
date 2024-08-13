@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development nodemon",
+    "dev": "NODE_ENV=development nodemon -r ts-node/register src/index.ts",
     "build": "tsc --build --force",
     "start": "node ./dist/index.js"
   },
