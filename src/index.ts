@@ -21,10 +21,10 @@ app.get("/health", (_req, res) => {
 });
 
 app.post(
-  "/generate",
+  "/generate/thread",
   async (
-    req: Request<GenerateRequestInput>,
-    res: Response<GenerateResponseBody | SosError>
+    req: Request<GenerateThreadInput>,
+    res: Response<GenerateThreadResponse | SosError>
   ) => {
     // TODO: request validation -> middleware
     if (!req.body || !req.body.question) {
@@ -45,6 +45,19 @@ app.post(
     }
   }
 );
+
+// app.post(
+//   "/generate/reply",
+//   async (
+//     req: Request<GenerateReplyInput>,
+//     res: Response<GenerateReplyResponse>
+//   ) => {
+//     // TODO
+//     res
+//       .status(200)
+//       .json({ message: "User created successfully", data: { name, email } });
+//   }
+// );
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

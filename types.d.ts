@@ -1,4 +1,6 @@
-interface GenerateRequestInput {
+/** Thread */
+
+interface GenerateThreadInput {
   question: string;
 }
 
@@ -8,11 +10,26 @@ interface Answer {
   isBest: boolean;
 }
 
-interface GenerateResponseBody {
+interface GenerateThreadResponse {
   questionTitle: string;
   answers: Answer[];
 }
 
+/** Replies */
+interface Message {
+  content: string;
+  role: string;
+}
+
+interface GenerateReplyInput {
+  messages: Message[];
+}
+
+interface GenerateReplyResponse {
+  reply: string;
+}
+
+/** Other */
 interface SosError {
   message: string;
 }

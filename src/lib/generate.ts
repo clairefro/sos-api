@@ -24,7 +24,7 @@ function buildRequestOptions(question: string) {
 async function askWithRetries(
   question: string,
   retries: number = 3
-): Promise<GenerateResponseBody | undefined> {
+): Promise<GenerateThreadResponse | undefined> {
   /** build query */
 
   const opts = buildRequestOptions(question);
@@ -69,7 +69,7 @@ async function askWithRetries(
 
 async function generateSoAnswers(
   question: string
-): Promise<GenerateResponseBody | undefined> {
+): Promise<GenerateThreadResponse | undefined> {
   try {
     const content = await askWithRetries(question);
 
