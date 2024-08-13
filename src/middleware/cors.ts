@@ -29,7 +29,7 @@ export const handleCorsError = (
   next: NextFunction
 ) => {
   if (err.message === CORS_ERR_MSG) {
-    res.status(403).json({ error: "Not allowed by CORS" });
+    res.status(403).json({ error: CORS_ERR_MSG });
   } else {
     next(err);
   }
