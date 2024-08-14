@@ -3,6 +3,8 @@ import cors from "cors";
 import { corsOptions, handleCorsError } from "./middleware/cors";
 import { limiter } from "./middleware/limiter";
 import { generateSoAnswers } from "./lib/generate";
+import generateThreadPrompt from "./lib/prompts/generateThread";
+import generateReplyPrompt from "./lib/prompts/generateReply";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -58,6 +60,14 @@ app.post(
 //       .json({ message: "User created successfully", data: { name, email } });
 //   }
 // );
+
+app.get("/prompts/generateThread", (_req, res: Response<GetPromptResponse>) => {
+  res.status(200).send({ prompt: generateThreadPrompt });
+});
+
+app.get("/prompts/generateReply", (_req, res: Response<GetPromptResponse>) => {
+  res.status(200).send({ prompt: generateReplyPrompt });
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

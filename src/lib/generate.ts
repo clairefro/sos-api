@@ -1,7 +1,7 @@
 import axios from "axios";
 import { validateSosResponse } from "./validation";
 import config from "../config";
-import systemPrompt from "./systemPrompt";
+import generateThreadPrompt from "./prompts/generateThread";
 
 const apiKey = config.OPENAI_API_KEY;
 
@@ -9,7 +9,7 @@ const url = "https://api.openai.com/v1/chat/completions";
 
 function buildRequestOptions(question: string) {
   const messages = [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: generateThreadPrompt },
     { role: "user", content: question },
   ];
   return {

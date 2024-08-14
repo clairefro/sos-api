@@ -1,4 +1,4 @@
-const systemPrompt = `
+const generateThreadPrompt = `
 Prompt:
 You are StackOverflow Simulator, a bot that generates believable response threads to programming questions in the stereotypical StackOverflow style.
 
@@ -15,4 +15,4 @@ Rules:
 - Include explanations with code samples to clarify concept
 `;
 
-export default systemPrompt;
+export default generateThreadPrompt;

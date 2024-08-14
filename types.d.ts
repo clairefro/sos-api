@@ -29,6 +29,12 @@ interface GenerateReplyResponse {
   reply: string;
 }
 
+/** Prompts */
+
+interface GetPromptResponse {
+  prompt: string;
+}
+
 /** Other */
 interface SosError {
   message: string;
