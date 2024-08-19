@@ -2,12 +2,32 @@ import axios from "axios";
 import { validateSosResponse } from "./validation";
 import config from "../config";
 import generateThreadPrompt from "./prompts/generateThread";
+import generateReplyPrompt from "./prompts/generateReply";
 
+/** Constants */
 const apiKey = config.OPENAI_API_KEY;
 
 const url = "https://api.openai.com/v1/chat/completions";
 
-function buildRequestOptions(question: string) {
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${apiKey}`,
+};
+
+/** Helpers */
+function handleError(err: Error) {
+  if (axios.isAxiosError(err)) {
+    if (err.response?.data?.error?.message) {
+      throw new Error("OpenAI error: " + err.response.data.error.message);
+    } else {
+      throw new Error("Axios error: " + err.message);
+    }
+  } else {
+    throw new Error("Unexpected error: " + err.message);
+  }
+}
+
+function buildThreadRequestOptions(question: string) {
   const messages = [
     { role: "system", content: generateThreadPrompt },
     { role: "user", content: question },
@@ -21,18 +41,27 @@ function buildRequestOptions(question: string) {
   };
 }
 
+function buildReplyRequestOptions(messages: Message[]) {
+  const messagesWtihSystemPrompt = [
+    { role: "system", content: generateReplyPrompt },
+    ...messages,
+  ];
+  return {
+    model: config.OPENAI_MODEL,
+    max_tokens: 4090,
+    n: 1,
+    temperature: 1,
+    messages: messagesWtihSystemPrompt,
+  };
+}
+
 async function askWithRetries(
   question: string,
   retries: number = 3
 ): Promise<GenerateThreadResponse | undefined> {
   /** build query */
 
-  const opts = buildRequestOptions(question);
-
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${apiKey}`,
-  };
+  const opts = buildThreadRequestOptions(question);
 
   /** start attempts until valid JSON is returned */
   let attempt = 0;
@@ -67,7 +96,8 @@ async function askWithRetries(
   return undefined;
 }
 
-async function generateSoAnswers(
+/** Exports */
+async function generateThread(
   question: string
 ): Promise<GenerateThreadResponse | undefined> {
   try {
@@ -75,16 +105,23 @@ async function generateSoAnswers(
 
     return content;
   } catch (err: any) {
-    if (axios.isAxiosError(err)) {
-      if (err.response?.data?.error?.message) {
-        throw new Error("OpenAI error: " + err.response.data.error.message);
-      } else {
-        throw new Error("Axios error: " + err.message);
-      }
-    } else {
-      throw new Error("Unexpected error: " + err.message);
-    }
+    handleError(err);
   }
 }
 
-export { generateSoAnswers };
+async function generateReply(
+  messages: Message[]
+): Promise<GenerateReplyResponse | undefined> {
+  try {
+    const opts = buildReplyRequestOptions(messages);
+
+    const response = await axios.post(url, opts, { headers });
+    const reply = response.data.choices[0].message.content;
+
+    return { reply };
+  } catch (err: any) {
+    handleError(err);
+  }
+}
+
+export { generateThread, generateReply };

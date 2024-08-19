@@ -1,0 +1,588 @@
+{
+	"info": {
+		"_postman_id": "0caf3b91-590c-48db-b991-c59604c3b284",
+		"name": "SOS API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9605180"
+	},
+	"item": [
+		{
+			"name": "generate",
+			"item": [
+				{
+					"name": "generate thread",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"How do I center a div?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/generate/thread",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"generate",
+								"thread"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 generate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"question\": \"How do I center a div?\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/generate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"generate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 20:38:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1044"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Ray",
+									"value": "8a5d83173d7cef7b-PDX"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8b0-4G5zAplFGhkXX8G49xsRiNE/53I\""
+								},
+								{
+									"key": "Vary",
+									"value": "Origin, Accept-Encoding"
+								},
+								{
+									"key": "rndr-id",
+									"value": "ba2c21c4-a1e5-45ae"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"questionTitle\": \"How do I center a div?\",\n    \"answers\": [\n        {\n            \"content\": \"The most common way to center a div is to use CSS with the following code:\\n\\n```css\\n.centered-div {\\n  width: 50%; /* Or any width you prefer */\\n  margin: 0 auto;\\n}\\n```\\n\\nThis sets the left and right margins to 'auto', which will center the div. Make sure the parent container has a defined width for this to work properly. If you're using Flexbox, you can also achieve this with:\\n\\n```css\\n.parent {\\n  display: flex;\\n  justify-content: center;\\n}\\n```\\n```\\n\\nBest of luck!\\n\\n- JohnDoe123\",\n            \"username\": \"JohnDoe123\",\n            \"isBest\": true\n        },\n        {\n            \"content\": \"RTFM! Centering a div is a basic concept and has been discussed extensively. Check this:\\nhttps://stackoverflow.com/search?q=center+a+div\\n\\nBut seriously, use Margin: auto or Flexbox. Easy stuff!\",\n            \"username\": \"CodeNinja\",\n            \"isBest\": false\n        },\n        {\n            \"content\": \"You can use absolute positioning as well. Here’s a method:\\n\\n```css\\n.centered-div {\\n  width: 300px;\\n  position: absolute;\\n  top: 50%;\\n  left: 50%;\\n  transform: translate(-50%, -50%);\\n}\\n```\\n\\nThis will center the div both vertically and horizontally regardless of the parent element's properties. Be mindful of parent positioning!\",\n            \"username\": \"WebMaster987\",\n            \"isBest\": false\n        },\n        {\n            \"content\": \"Not to be a jerk, but this question is very basic and has been asked a million times. Check these links before posting:\\nhttps://stackoverflow.com/questions/tagged/css+centering\",\n            \"username\": \"PolicingPanda\",\n            \"isBest\": false\n        },\n        {\n            \"content\": \"For a simple center request, consider using Grid layout:\\n\\n```css\\n.parent {\\n  display: grid;\\n  place-items: center;\\n}\\n```\\n\\nIt’s a clean and modern solution, especially if you're working with CSS Grid. All modern browsers support this, and it's super effective.\\n\\n- GridGuru\",\n            \"username\": \"GridGuru\",\n            \"isBest\": false\n        },\n        {\n            \"content\": \"In terms of responsive design, using Flexbox is your safest bet. Combine it with other CSS features:\\n\\n```css\\nbody {\\n  height: 100vh;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n}\\n```\\nThis centers the div vertically and horizontally on the whole page. Perfect for modern responsive layouts!\\n\\n- FlexyMcFlexface\",\n            \"username\": \"FlexyMcFlexface\",\n            \"isBest\": false\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "generate reply",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"how do I center my div?\"\n        },\n        {\n            \"role\": \"assistant\",\n            \"content\": \"The most common way to center a div is to use CSS with the following code:\\n\\n```css\\n.centered-div {\\n  width: 50%; /* Or any width you prefer */\\n  margin: 0 auto;\\n}\\n```\\n\\nThis sets the left and right margins to 'auto', which will center the div. Make sure the parent container has a defined width for this to work properly. If you're using Flexbox, you can also achieve this with:\\n\\n```css\\n.parent {\\n  display: flex;\\n  justify-content: center;\\n}\\n```\\n```\\n\\nBest of luck!\\n\\n\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"why does margin: 0 auto center the div?\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/generate/reply",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"generate",
+								"reply"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 generate reply",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"how do I center my div?\"\n        },\n        {\n            \"role\": \"assistant\",\n            \"content\": \"The most common way to center a div is to use CSS with the following code:\\n\\n```css\\n.centered-div {\\n  width: 50%; /* Or any width you prefer */\\n  margin: 0 auto;\\n}\\n```\\n\\nThis sets the left and right margins to 'auto', which will center the div. Make sure the parent container has a defined width for this to work properly. If you're using Flexbox, you can also achieve this with:\\n\\n```css\\n.parent {\\n  display: flex;\\n  justify-content: center;\\n}\\n```\\n```\\n\\nBest of luck!\\n\\n\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"why does margin: 0 auto center the div?\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/generate/reply",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"generate",
+										"reply"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "8"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "7"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 19 Aug 2024 17:00:27 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1724086888"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "553"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"229-721tyb/xY3G8WuvuMsYxca6HPYg\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"reply\": \"`margin: 0 auto;` works by setting the left and right margins to 'auto', which effectively distributes any extra space equally on both sides of the element. For this to function, the element must have a defined width, otherwise, it takes up the full width of its container. Essentially, the browser calculates the remaining space after placing the element, and uses that space to push it into the center. If you want a deeper dive, check out this [margin auto explanation](https://stackoverflow.com/search?q=margin+0+auto) for more insights!\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "prompts",
+			"item": [
+				{
+					"name": "get generate thread prompt",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/prompts/generateThread",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"prompts",
+								"generateThread"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 get generate thread prompt",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/prompts/generateThread",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"prompts",
+										"generateThread"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "8"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 18:41:42 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1723574563"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "935"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3a7-dqcsCALu34uUjv6Kd1krn7uxGLA\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"prompt\": \"\\nPrompt:\\nYou are StackOverflow Simulator, a bot that generates believable response threads to programming questions in the stereotypical StackOverflow style.\\n\\nRules:\\n\\n- Respond with a JSON object: { questionTitle: <title>, answers: [{ content: \\\"<answer>\\\", username: \\\"<username>\\\", isBest: <boolean>},...] }\\n- JSON should be raw and parseable, not in a markdown code block.\\n- Only one answer should have isBest: true, chosen as the best, most relevant answer.\\n- Provide 2-7 answers per prompt.\\n- Mix professional, policing (\\\"this question has been asked\\\"), RTFM, and holier-than-thou tones typical of StackOverflow.\\n- Use dummy links to StackOverflow search where needed.\\n- All links should be clickable markdown.\\n- Vary answer lengths and approaches, including code snippets, links to documentation, and references to principles or patterns.\\n- Include explanations with code samples to clarify concept\\n\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get generate reply prompt",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/prompts/generateReply",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"prompts",
+								"generateReply"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 get generate reply prompt",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/prompts/generateReply",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"prompts",
+										"generateReply"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "8"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "6"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 18:50:34 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1723575091"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "694"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b6-2Hgw9sBPR8k9518HL8KFvjDvEs4\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"prompt\": \"\\nPrompt:\\nYou are StackOverflow Simulator, a bot that generates believable response threads to programming questions in the stereotypical StackOverflow style. You will be given a series of chat messages between the user and the bot (assistant), and your job is to continue the conversation and provide an accurate reply to help the user.\\n\\nRules:\\n- Answer in the same tone of voice as the previous bot messages\\n- Use dummy links to StackOverflow search where needed.\\n- All links should be clickable markdown.\\n- As needed, including code snippets, links to documentation, and references to principles or patterns.\\n- Include explanations with code samples to clarify concept\\n\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 health",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jul 2024 20:39:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "26"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8a5d84ce5986ef7b-PDX"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "1045239f-6d98-4baa"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "Render"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "later",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

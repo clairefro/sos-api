@@ -2,9 +2,10 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { corsOptions, handleCorsError } from "./middleware/cors";
 import { limiter } from "./middleware/limiter";
-import { generateSoAnswers } from "./lib/generate";
+import { generateThread, generateReply } from "./lib/generate";
 import generateThreadPrompt from "./lib/prompts/generateThread";
 import generateReplyPrompt from "./lib/prompts/generateReply";
+import { isValidGenerateReplyInput } from "./util/isValidGenerateReplyInput";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -38,7 +39,7 @@ app.post(
     const question = req.body.question;
 
     try {
-      const answers = await generateSoAnswers(question);
+      const answers = await generateThread(question);
 
       res.status(200).send(answers);
     } catch (e: any) {
@@ -48,18 +49,31 @@ app.post(
   }
 );
 
-// app.post(
-//   "/generate/reply",
-//   async (
-//     req: Request<GenerateReplyInput>,
-//     res: Response<GenerateReplyResponse>
-//   ) => {
-//     // TODO
-//     res
-//       .status(200)
-//       .json({ message: "User created successfully", data: { name, email } });
-//   }
-// );
+app.post(
+  "/generate/reply",
+  async (
+    req: Request<GenerateReplyInput>,
+    res: Response<GenerateReplyResponse | SosError>
+  ) => {
+    // TODO: request validation -> middleware
+    if (!isValidGenerateReplyInput(req.body)) {
+      return res
+        .status(400)
+        .send({ message: "Missing valid 'messages' array in request body" });
+    }
+
+    const messages = req.body.messages;
+
+    try {
+      const reply = await generateReply(messages);
+
+      res.status(200).send(reply);
+    } catch (e: any) {
+      console.error(e.message);
+      res.status(500).send({ message: e.message });
+    }
+  }
+);
 
 app.get("/prompts/generateThread", (_req, res: Response<GetPromptResponse>) => {
   res.status(200).send({ prompt: generateThreadPrompt });
