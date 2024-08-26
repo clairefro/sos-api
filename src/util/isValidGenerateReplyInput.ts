@@ -1,5 +1,4 @@
 function isValidGenerateReplyInput(obj: any) {
-  console.log({ obj });
   if (typeof obj !== "object" || obj === null || !Array.isArray(obj.messages)) {
     return false;
   }
