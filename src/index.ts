@@ -76,10 +76,12 @@ app.post(
 );
 
 app.get("/prompts/generateThread", (_req, res: Response<GetPromptResponse>) => {
+  res.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
   res.status(200).send({ prompt: generateThreadPrompt });
 });
 
 app.get("/prompts/generateReply", (_req, res: Response<GetPromptResponse>) => {
+  res.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
   res.status(200).send({ prompt: generateReplyPrompt });
 });
 
