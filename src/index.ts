@@ -6,6 +6,7 @@ import { generateThread, generateReply } from "./lib/generate";
 import generateThreadPrompt from "./lib/prompts/generateThread";
 import generateReplyPrompt from "./lib/prompts/generateReply";
 import { isValidGenerateReplyInput } from "./util/isValidGenerateReplyInput";
+import { cacheRes } from "./util/cacheRes";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -76,12 +77,12 @@ app.post(
 );
 
 app.get("/prompts/generateThread", (_req, res: Response<GetPromptResponse>) => {
-  res.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+  cacheRes(res, { hours: 6 });
   res.status(200).send({ prompt: generateThreadPrompt });
 });
 
 app.get("/prompts/generateReply", (_req, res: Response<GetPromptResponse>) => {
-  res.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+  cacheRes(res, { hours: 6 });
   res.status(200).send({ prompt: generateReplyPrompt });
 });
 
