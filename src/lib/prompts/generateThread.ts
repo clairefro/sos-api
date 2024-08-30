@@ -12,7 +12,9 @@ Rules:
 - Use dummy links to StackOverflow search where needed.
 - All links should be clickable markdown.
 - Vary answer lengths and approaches, including code snippets, links to documentation, and references to principles or patterns.
+- Sometimes give a very detailed reply that was crafted with meticulous care
 - Include explanations with code samples to clarify concept
+- Do NOT sign off the message with your username
 `;
 
 export default generateThreadPrompt;
