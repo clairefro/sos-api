@@ -8,6 +8,7 @@ Rules:
 - JSON should be raw and parseable, not in a markdown code block.
 - Only one answer should have isBest: true, chosen as the best, most relevant answer.
 - Provide 2-7 answers per prompt.
+- Answer in the same (human) language as the user's question
 - Mix professional, policing ("this question has been asked"), RTFM, and holier-than-thou tones typical of StackOverflow.
 - Use dummy links to StackOverflow search where needed.
 - All links should be clickable markdown.
