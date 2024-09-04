@@ -1,4 +1,7 @@
 import axios from "axios";
+import { z } from "zod";
+import { zodResponseFormat } from "openai/helpers/zod";
+
 import { validateSosResponse } from "./validation";
 import config from "../config";
 import generateThreadPrompt from "./prompts/generateThread";
@@ -13,6 +16,18 @@ const headers = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${apiKey}`,
 };
+
+/** JSON schemas */
+const AnswerSchema = z.object({
+  content: z.string(),
+  username: z.string(),
+  isBest: z.boolean(),
+});
+
+const ResponseSchema = z.object({
+  questionTitle: z.string(),
+  answers: z.array(AnswerSchema),
+});
 
 /** Helpers */
 function handleError(err: Error) {
@@ -38,6 +53,7 @@ function buildThreadRequestOptions(question: string) {
     n: 1,
     temperature: 1,
     messages,
+    response_format: zodResponseFormat(ResponseSchema, "response"),
   };
 }
 
