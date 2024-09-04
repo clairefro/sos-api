@@ -71,45 +71,22 @@ function buildReplyRequestOptions(messages: Message[]) {
   };
 }
 
-async function askWithRetries(
-  question: string,
-  retries: number = 3
+async function getThreadResponse(
+  question: string
 ): Promise<GenerateThreadResponse | undefined> {
-  /** build query */
-
   const opts = buildThreadRequestOptions(question);
 
-  /** start attempts until valid JSON is returned */
-  let attempt = 0;
+  try {
+    const response = await axios.post(url, opts, { headers });
 
-  while (attempt < retries) {
-    try {
-      const response = await axios.post(url, opts, { headers });
+    const content = response.data.choices[0].message.content;
 
-      const content = response.data.choices[0].message.content;
+    validateSosResponse(content);
 
-      validateSosResponse(content);
-
-      return JSON.parse(content);
-    } catch (error) {
-      if (error instanceof SyntaxError) {
-        console.error(`Invalid JSON response on attempt ${attempt + 1}`);
-      } else if (axios.isAxiosError(error)) {
-        console.error(
-          `Axios error on attempt ${attempt + 1}: ${error.message}`
-        );
-      } else {
-        console.error(`Unknown error on attempt ${attempt + 1}: ${error}`);
-      }
-      attempt++;
-      console.log("starting attempt " + (attempt + 1));
-      if (attempt === retries) {
-        console.error("Max retries reached. Giving up.");
-        throw new Error("Max retries reached. Giving up.");
-      }
-    }
+    return JSON.parse(content);
+  } catch (error: any) {
+    console.error(error.message);
   }
-  return undefined;
 }
 
 /** Exports */
@@ -117,7 +94,7 @@ async function generateThread(
   question: string
 ): Promise<GenerateThreadResponse | undefined> {
   try {
-    const content = await askWithRetries(question);
+    const content = await getThreadResponse(question);
 
     return content;
   } catch (err: any) {
