@@ -31,14 +31,21 @@ const ResponseSchema = z.object({
 
 /** Helpers */
 function handleError(err: Error) {
+  let msg = "";
   if (axios.isAxiosError(err)) {
     if (err.response?.data?.error?.message) {
-      throw new Error("OpenAI error: " + err.response.data.error.message);
+      msg = err.response?.data?.error?.message;
+      console.error(msg);
+      throw new Error("OpenAI error: " + msg);
     } else {
-      throw new Error("Axios error: " + err.message);
+      msg = err.message;
+      console.error(msg);
+      throw new Error("Axios error: " + msg);
     }
   } else {
-    throw new Error("Unexpected error: " + err.message);
+    msg = err.message;
+    console.error(msg);
+    throw new Error("Unexpected error: " + msg);
   }
 }
 
