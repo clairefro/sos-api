@@ -11,6 +11,8 @@ import { cacheRes } from "./util/cacheRes";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.set("trust proxy", 1);
+
 /** MIDDLEWARE */
 app.use(express.json());
 
