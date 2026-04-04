@@ -56,7 +56,7 @@ function buildThreadRequestOptions(question: string) {
   ];
   return {
     model: config.OPENAI_MODEL,
-    max_completion_tokens: 4090,
+    max_completion_tokens: 8000,
     n: 1,
     temperature: 1,
     messages,
@@ -65,16 +65,16 @@ function buildThreadRequestOptions(question: string) {
 }
 
 function buildReplyRequestOptions(messages: Message[]) {
-  const messagesWtihSystemPrompt = [
+  const messagesWithSystemPrompt = [
     { role: "system", content: generateReplyPrompt },
     ...messages,
   ];
   return {
     model: config.OPENAI_MODEL,
-    max_completion_tokens: 4090,
+    max_completion_tokens: 2048,
     n: 1,
     temperature: 1,
-    messages: messagesWtihSystemPrompt,
+    messages: messagesWithSystemPrompt,
   };
 }
 
@@ -86,7 +86,23 @@ async function getThreadResponse(
   try {
     const response = await axios.post(url, opts, { headers });
 
-    const content = response.data.choices[0].message.content;
+    const choice = response.data.choices[0];
+
+    if (choice.finish_reason === "length") {
+      throw new Error(
+        "Response truncated: max_completion_tokens limit reached",
+      );
+    }
+
+    if (choice.message.refusal) {
+      throw new Error("OpenAI refused the request: " + choice.message.refusal);
+    }
+
+    const content = choice.message.content;
+
+    if (!content) {
+      throw new Error("Empty response content from OpenAI");
+    }
 
     validateSosResponse(content);
 

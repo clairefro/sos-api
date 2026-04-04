@@ -13,6 +13,8 @@ Rules:
 - Vary answer lengths and approaches, including code snippets, links to documentation, and references to principles or patterns.
 - Sometimes give a very detailed reply that was crafted with meticulous care
 - Include explanations with code samples to clarify concept
+- Use fenced markdown code blocks for multi-line code
+- Always wrap inline code references (function names, variable names, packages, keywords, etc.) in backticks, e.g. \`axios\`, \`useState\`, \`null\`
 - Do NOT sign off the message with your username
 `;
 
