@@ -56,7 +56,7 @@ function buildThreadRequestOptions(question: string) {
   ];
   return {
     model: config.OPENAI_MODEL,
-    max_tokens: 4090,
+    max_completion_tokens: 4090,
     n: 1,
     temperature: 1,
     messages,
@@ -71,7 +71,7 @@ function buildReplyRequestOptions(messages: Message[]) {
   ];
   return {
     model: config.OPENAI_MODEL,
-    max_tokens: 4090,
+    max_completion_tokens: 4090,
     n: 1,
     temperature: 1,
     messages: messagesWtihSystemPrompt,
@@ -79,7 +79,7 @@ function buildReplyRequestOptions(messages: Message[]) {
 }
 
 async function getThreadResponse(
-  question: string
+  question: string,
 ): Promise<GenerateThreadResponse | undefined> {
   const opts = buildThreadRequestOptions(question);
 
@@ -98,7 +98,7 @@ async function getThreadResponse(
 
 /** Exports */
 async function generateThread(
-  question: string
+  question: string,
 ): Promise<GenerateThreadResponse | undefined> {
   try {
     const content = await getThreadResponse(question);
@@ -110,7 +110,7 @@ async function generateThread(
 }
 
 async function generateReply(
-  messages: Message[]
+  messages: Message[],
 ): Promise<GenerateReplyResponse | undefined> {
   try {
     const opts = buildReplyRequestOptions(messages);
